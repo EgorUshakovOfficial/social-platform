@@ -1,0 +1,98 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+y
+a{
+    text-decoration: none;
+}
+
+textarea{
+    border-radius: 8px;
+    border: 1px solid gray;
+    resize: none;
+}
+
+textarea:focus{
+    border: none;
+}
+
+#home{
+    display: grid;
+    grid-template-columns: 300px 380px; 
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+#company-div{
+    margin-right: 2em;
+}
+
+.company-title{
+  font-weight: 800;
+  margin-bottom: 0.25em;
+}
+
+.company-description{
+    font-size: 1.25em;
+    word-break: break-word;
+    margin-bottom: 0.25em;
+}
+
+#login-div {
+    padding:2em;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.row{
+    margin-bottom: 0.8em;
+}
+
+
+#forgot-div{
+    text-align: center;
+    margin-bottom: 0.8em;
+}
+
+#create-account-div{
+    width: 80%;
+    margin-inline: auto;
+}
+
+.divider{
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 0.8em;
+}
+
+/* Dashboard */
+
+
+
+
+@media(max-width: 695px){
+    #home {
+        width: 80%;
+        margin-inline: auto;
+        grid-template-columns: auto;
+    }
+
+    #login-div{
+        align-self: start;
+    }
+
+    .company-title, .company-description {
+        text-align: center;
+    }
+
+    #company-div{
+        align-self: end;
+        margin: 0.8em 0 0.8em 0;
+        margin-right: 0;
+    }
+}
