@@ -80,10 +80,15 @@ textarea{
 
 /* Dashboard */
 #dashboard{
+    background: rgb(242, 242, 242);
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
     margin-top: calc(60px + 0.5em);
+    min-height: 100vh;
 }
 
 #header {
+    background: white;
     width: 100%;
     position: fixed;
     display: flex;
@@ -124,10 +129,14 @@ textarea{
     opacity: 0.8;
 }
 
-#make-post {
-    padding: 0.5em;
+#make-post{
+    background: white;
+    padding: 0.8em;
     border: 1px solid lightgray;
+    border-radius: 8px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    margin: 0.8em auto;
+    min-width: 450px;
 }
 
 #make-post-upper{
@@ -144,8 +153,9 @@ textarea{
 
 .pic-div{
     display: flex;
+    justify-content: center;
     align-items: center;
-    
+    margin-right: 0.8em;
 }
 
 #friends-book-logo, 
@@ -153,7 +163,56 @@ textarea{
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    margin-inline: 0.8em;
+}
+
+.post {
+    background: white;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    padding: 1em;
+    border-radius: 8px;
+    margin-bottom: 0.8em;
+    min-width: 450px;
+}
+
+.post-description{
+    margin-bottom: 0.8em;
+}
+
+.user-container{
+    display: flex;
+    margin-bottom: 0.2em;
+}
+
+.reactions-container{
+    display: grid;
+    grid-template-columns: 30% 30% 30%; 
+    justify-content: space-between;
+}
+
+.reaction{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    padding: 0.2em;
+    border: none;
+    border-radius: 8px;
+}
+
+.reaction > *{
+    font-size: 1.125em;
+    margin-left: 0.4em;
+}
+
+.reaction:hover{
+    background: lightgray;
+}
+
+.likes-comments{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.8em;
 }
 
 

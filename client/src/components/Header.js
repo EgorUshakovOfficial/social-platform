@@ -26,6 +26,7 @@ export default function Header() {
                         onChange={e => setFilter(e.target.value)}
                         value={filter}
                         placeholder="Search Friends Book"
+
                     />
                 </div>
             </div>
@@ -45,7 +46,7 @@ export default function Header() {
                     </li>
                 </Link>
                 <Link to="/profile">
-                    <li className="pic-div">
+                    <li className="pic-div" style={{marginLeft:"0.8em", marginRight:"0"}}>
                         <img
                             className="profile-pic"
                             src={require('../images/profile-pic.png')}
