@@ -230,7 +230,6 @@ textarea{
     left: 80%;
     margin-top: calc(60px + 0.5em);
     overflow-y: auto;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     padding: 0.5em;
     z-index: 2;
     border: 1px solid lightgray;
@@ -251,12 +250,13 @@ textarea{
     padding: 0;
 }
 
-.active-user{
+.group, .active-user {
     background: white;
     width: 100%;
     text-align: center;
     margin-bottom: 0.8em;
     border-radius: 8px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .sidebar-users-name,

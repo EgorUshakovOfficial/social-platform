@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faCircleDot} from '@fortawesome/free-solid-svg-icons';
 export default function SideBar() {
     return (
         <div id="sidebar">
@@ -13,10 +15,10 @@ export default function SideBar() {
             <div id="groups">
                 <div className="sidebar-groups-name">Groups</div>
                 <ul className="users">
-                    <li className="active-user">Soccer</li>
-                    <li className="active-user">Hockey</li>
-                    <li className="active-user">Basketball</li>
-                    <li className="active-user">PHP</li>
+                    <li className="group">Soccer</li>
+                    <li className="group">Hockey</li>
+                    <li className="group">Basketball</li>
+                    <li className="group">PHP</li>
                 </ul>
             </div>
         </div>
