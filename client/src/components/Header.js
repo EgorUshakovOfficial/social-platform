@@ -25,6 +25,7 @@ export default function Header() {
                         id="header-search"
                         onChange={e => setFilter(e.target.value)}
                         value={filter}
+                        placeholder="Search Friends Book"
                     />
                 </div>
             </div>
@@ -41,6 +42,15 @@ export default function Header() {
                 <Link to="/messages">
                     <li className="icon">
                         <FontAwesomeIcon icon={faFacebookMessenger} />
+                    </li>
+                </Link>
+                <Link to="/profile">
+                    <li className="pic-div">
+                        <img
+                            className="profile-pic"
+                            src={require('../images/profile-pic.png')}
+                            alt="Picture of user"
+                        />
                     </li>
                 </Link>
             </ul>

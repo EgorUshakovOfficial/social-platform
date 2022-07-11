@@ -14,6 +14,14 @@ a{
     text-decoration: none;
 }
 
+input{
+    border: 1px solid lightgray;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
 textarea{
     border-radius: 8px;
     border: 1px solid lightgray;
@@ -71,13 +79,23 @@ textarea{
 }
 
 /* Dashboard */
-#header{
+#dashboard{
+    margin-top: calc(60px + 0.5em);
+}
+
+#header {
     width: 100%;
     position: fixed;
     display: flex;
     top: 0;
     left: 0;
     justify-content: space-around;
+    padding: 0.5em;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+#header-search{
+    border-radius: 8px;
 }
 
 #header-left, 
@@ -135,6 +153,7 @@ textarea{
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    margin-inline: 0.8em;
 }
 
 
