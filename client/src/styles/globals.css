@@ -80,9 +80,10 @@ textarea{
 
 /* Dashboard */
 #dashboard{
+    position: relative;
     background: rgb(242, 242, 242);
     display: grid;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-columns: 80% 20%;
     margin-top: calc(60px + 0.5em);
     min-height: 100vh;
 }
@@ -125,11 +126,12 @@ textarea{
     margin-left: 0.5em;
 }
 
-.icon:hover{
+.active-user:hover, .icon:hover{
     opacity: 0.8;
 }
 
 #make-post{
+    width: 96%; 
     background: white;
     padding: 0.8em;
     border: 1px solid lightgray;
@@ -141,8 +143,7 @@ textarea{
 
 #make-post-upper{
     display: grid;
-    gap: 0.5em; 
-    grid-template-columns: 60px auto;
+    grid-template-columns: 50px auto;
     margin-bottom: 0.25em;
 }
 
@@ -166,11 +167,13 @@ textarea{
 }
 
 .post {
+    width: 96%; 
     background: white;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     padding: 1em;
     border-radius: 8px;
     margin-bottom: 0.8em;
+    margin-inline: auto;
     min-width: 450px;
 }
 
@@ -213,6 +216,52 @@ textarea{
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.8em;
+}
+
+#sidebar {
+    width: 20%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100vh-60px-0.5em);
+    top: 0;
+    bottom: 0;
+    left: 80%;
+    margin-top: calc(60px + 0.5em);
+    overflow-y: auto;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    padding: 0.5em;
+    z-index: 2;
+    border: 1px solid lightgray;
+}
+
+.sidebar-users-name, 
+.sidebar-groups-name{
+    text-align: center;
+}
+
+#active-users, #groups{
+    width: 100%;
+}
+
+.users{
+    width: 100%; 
+    margin: 0;
+    padding: 0;
+}
+
+.active-user{
+    background: white;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.8em;
+    border-radius: 8px;
+}
+
+.sidebar-users-name,
+.sidebar-groups-name{
+    font-weight: 800;
 }
 
 

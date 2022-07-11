@@ -1,7 +1,8 @@
 import { StateContext } from '../containers/Provider';
 import ReadPost from '../components/ReadPost'; 
 import MakePost from '../components/MakePost';
-import Header from '../components/Header'; 
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
 import { useContext } from 'react';
 export default function Dashboard() {
     // Handle click 
@@ -21,18 +22,13 @@ export default function Dashboard() {
     return (
         <div id="dashboard">
             <Header />
-            <div className="nav">
-                <h1>Hello world</h1>
-            </div>
             <div id="posts">
                 <MakePost />
                 <ReadPost />
                 <ReadPost />
                 <ReadPost />
             </div>
-            <div>
-                <button onClick={handleLogout}>Logout</button>
-            </div>
+            <Sidebar />
         </div>
     )
 }
