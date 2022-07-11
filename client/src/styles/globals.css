@@ -5,19 +5,19 @@ body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
 }
-y
+
+li{
+    list-style: none;
+}
+
 a{
     text-decoration: none;
 }
 
 textarea{
     border-radius: 8px;
-    border: 1px solid gray;
+    border: 1px solid lightgray;
     resize: none;
-}
-
-textarea:focus{
-    border: none;
 }
 
 #home{
@@ -71,11 +71,74 @@ textarea:focus{
 }
 
 /* Dashboard */
+#header{
+    width: 100%;
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    justify-content: space-around;
+}
+
+#header-left, 
+#navbar{
+    display: flex;
+    align-items: center;
+}
+
+#navbar{
+    margin: 0;
+    padding: 0;
+}
+
+.icon{
+    cursor: pointer;
+    display: flex;
+    background: lightgray;
+    color: black;
+    font-size: 1.25em;
+    border-radius: 50%;
+    padding: 8px;
+    margin-left: 0.5em;
+}
+
+.icon:hover{
+    opacity: 0.8;
+}
+
+#make-post {
+    padding: 0.5em;
+    border: 1px solid lightgray;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+#make-post-upper{
+    display: grid;
+    gap: 0.5em; 
+    grid-template-columns: 60px auto;
+    margin-bottom: 0.25em;
+}
+
+#make-post-lower{
+    display: flex; 
+    justify-content: flex-end;
+}
+
+.pic-div{
+    display: flex;
+    align-items: center;
+    
+}
+
+#friends-book-logo, 
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
 
 
-
-
-@media(max-width: 695px){
+@media(max-width: 695px) {
     #home {
         width: 80%;
         margin-inline: auto;

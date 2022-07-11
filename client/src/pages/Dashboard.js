@@ -1,5 +1,6 @@
 import { StateContext } from '../containers/Provider';
-import CreatePost from '../components/CreatePost';
+import MakePost from '../components/MakePost';
+import Header from '../components/Header'; 
 import { useContext } from 'react';
 export default function Dashboard() {
     // Handle click 
@@ -18,10 +19,16 @@ export default function Dashboard() {
 
     return (
         <div id="dashboard">
-            <div id="posts">
-                <CreatePost />
+            <Header />
+            <div className="nav">
+                <h1>Hello world</h1>
             </div>
-            <button onClick={handleLogout}>Logout</button>
+            <div id="posts">
+                <MakePost />
+            </div>
+            <div>
+                <button onClick={handleLogout}>Logout</button>
+            </div>
         </div>
     )
 }
