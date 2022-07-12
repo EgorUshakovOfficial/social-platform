@@ -6,8 +6,13 @@ const passport = require('passport');
 const typeDefs = require('./schema/schema'); 
 const resolvers = require('./resolvers/resolvers'); 
 const routes = require('./routes');  
-const { User, Session} = require('./models/User'); 
+const { User, Session } = require('./models/User');
+const { getUser, getToken} = require('./utils/authenticate');
+const Post = require('./models/Post'); 
+const connectDb = require('./config/connectdb');
 const { ApolloServer } = require('apollo-server-express'); 
+const Users = require('./datasources/mongodb-datasources/users');
+const Posts = require('./datasources/mongodb-datasources/posts');
 const {
     ApolloServerPluginDrainHttpServer, 
     ApolloServerPluginLandingPageGraphQLPlayground
@@ -42,6 +47,20 @@ const startApolloServer = async (typeDefs, resolvers) => {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
+        dataSources: () => ({
+            users: new Users(User), 
+            posts: new Posts(Post)
+        }),
+        context: async ({ req }) => {
+            //let headerInput = req.headers?.authorization || ""
+            //let token = headerInput.replace(/bearer/i, "")
+            let token = getToken({_id: "62c9da370bd03a3ab67c4be3"})
+            let user = await getUser(token)
+            if (user === null) {
+                throw new Error("Unauthorized")
+            }
+            return {user}
+        },
         csrfPrevention: true,
         cache: 'bounded',
         plugins: [

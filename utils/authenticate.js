@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken'); 
+const jwt = require('jsonwebtoken');
+const { User } = require('../models/User'); 
 
 exports.COOKIE_OPTIONS = {
     httpOnly: true, 
@@ -20,5 +21,18 @@ exports.getRefreshToken = user => {
     })
 
     return refreshToken
+}
+
+exports.getUser = async token => {
+    try {
+        const payload = jwt.verify(token, process.env.JWT_SECRET)
+        let user = await User.findById(payload._id)
+        if (user === null) { return null }
+        delete user.refreshToken
+        return user
+    } catch (err) {
+       return null
+    }
+
 }
 
