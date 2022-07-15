@@ -1,10 +1,15 @@
 const resolvers = {
     Query: {
-        hello: () => "hello world",
-        user: (_, { id }, { dataSources }) => {
-            return dataSources.users.getUser(id)
-        },
+        posts: (_, __, {dataSources}) => {
+            return dataSources.posts.getPosts()
+        }
     },
+    Post: {
+        author: ({authorId} , _, { dataSources }) => {
+            if (authorId === undefined) {return}
+            return dataSources.users.getUser(authorId);
+        }
+    }, 
     Mutation: {
         createPost: async (_, { description }, { dataSources, user }) => {
             try {
@@ -13,18 +18,14 @@ const resolvers = {
                     .createPost(description, user._id)
                     .save()
                 post = {
+                    _id: post._id,
                     description: post.description, 
                     createdAt: post.createdAt, 
-                    author: {
-                        _id: user._id, 
-                        name: user.name, 
-                        email: user.email
-                    }, 
+                    authorId: user._id, 
                     numComments: post.numComments, 
                     numLikes: post.numLikes
                 }
 
-                console.log(post)
                 return {
                     success: true,
                     code: 200,

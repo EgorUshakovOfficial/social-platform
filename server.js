@@ -52,9 +52,9 @@ const startApolloServer = async (typeDefs, resolvers) => {
             posts: new Posts(Post)
         }),
         context: async ({ req }) => {
-            //let headerInput = req.headers?.authorization || ""
-            //let token = headerInput.replace(/bearer/i, "")
-            let token = getToken({_id: "62c9da370bd03a3ab67c4be3"})
+            let headerInput = req.headers?.authorization || ""
+            let token = headerInput.replace(/bearer\s/i, "")
+/*            let token = getToken({_id: "62c9da370bd03a3ab67c4be3"})*/
             let user = await getUser(token)
             if (user === null) {
                 throw new Error("Unauthorized")

@@ -113,14 +113,15 @@ module.exports = (app, User, Session) => {
 
     })
 
-    app.post('/refreshToken', async (req, res) => {
+    app.post('/refreshToken', (req, res) => {
         const { signedCookies = {} } = req
         const { refreshToken } = signedCookies
         try {
             let payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET)
             const { _id } = payload
             User.findById(_id)
-                .then(async user => {
+                .then(user => {
+                    console.log(user)
                     let index = user.refreshToken.findIndex(obj => obj.token === refreshToken)
                     if (index === -1) {
                         res.statusCode = 401

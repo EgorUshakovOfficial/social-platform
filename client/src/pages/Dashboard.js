@@ -25,8 +25,6 @@ export default function Dashboard() {
             <div id="posts">
                 <MakePost />
                 <ReadPost />
-                <ReadPost />
-                <ReadPost />
             </div>
             <Sidebar />
         </div>
