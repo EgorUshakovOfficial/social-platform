@@ -10,6 +10,10 @@ const typeDefs = gql`
         createPost(description: String!): CreatePostResponse!
     }
 
+    type Subscription{
+        newPost: Post
+    }
+
     type CreatePostResponse{
         success: Boolean!
         code: Int!

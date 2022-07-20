@@ -4,18 +4,13 @@ import {
     Route,
     useNavigate
 } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
+import { client } from '../config/apollo-client-config';
 import {useEffect, useContext} from 'react';
 import { StateContext } from '../containers/Provider'; 
 import Protected from '../containers/Protected';
 import Dashboard from '../pages/Dashboard';
 import Spinner from './Spinner'; 
-
-// Set up Apollo client 
-const client = new ApolloClient({
-    uri: "http://localhost:5000",
-    cache: new InMemoryCache()
-}); 
 
 
 export default function Presentational() {
@@ -54,7 +49,7 @@ export default function Presentational() {
     return (
         <>
             {
-                state.token === "" ? 
+              state.token === "" ? 
                 <Spinner />
                 :
                 <ApolloProvider client={client}>

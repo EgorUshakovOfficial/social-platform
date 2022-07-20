@@ -7,9 +7,9 @@ import {
 import {useContext} from 'react'; 
 import { StateContext } from '../containers/Provider'; 
 import { GET_POSTS } from '../queries/postsQuery';
-import { useQuery } from '@apollo/client'; 
+import { useQuery, useSubscription} from '@apollo/client'; 
 import Spinner from './Spinner'; 
-export default function ReadPost() {
+export default function CurrentPosts() {
     const [state] = useContext(StateContext); 
     const { data, error, loading } = useQuery(GET_POSTS, {
         context: {

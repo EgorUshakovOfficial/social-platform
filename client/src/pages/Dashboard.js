@@ -1,5 +1,6 @@
 import { StateContext } from '../containers/Provider';
-import ReadPost from '../components/ReadPost'; 
+import CurrentPosts from '../components/CurrentPosts'; 
+import NewPosts from '../components/NewPosts'; 
 import MakePost from '../components/MakePost';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
@@ -24,7 +25,8 @@ export default function Dashboard() {
             <Header />
             <div id="posts">
                 <MakePost />
-                <ReadPost />
+                <CurrentPosts />
+                <NewPosts />
             </div>
             <Sidebar />
         </div>
