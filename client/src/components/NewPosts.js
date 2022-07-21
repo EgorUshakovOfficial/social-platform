@@ -1,20 +1,19 @@
-import { StateContext } from '../containers/Provider';
-import { useSubscription } from '@apollo/client'; 
-import { useContext } from 'react'; 
+import { useSubscription, useApolloClient} from '@apollo/client'; 
 import { POST_SUBSCRIPTION } from '../subscriptions/postSubscription'; 
 
-export default function NewPosts() {
-    // Token
-    const [state] = useContext(StateContext)
+export default function NewPosts({ user }) {
+    console.log(user)
 
-    // Subscription 
-    const { data, loading } = useSubscription(POST_SUBSCRIPTION)
-
-    console.log(data)
-    console.log(loading)
+    // Subscription
+    const { data, loading } = useSubscription(POST_SUBSCRIPTION, {
+        variables: {
+            userId: user._id
+        }
+    })
+    console.log(data);
     return (
         <div>
-            {loading === false && JSON.stringify(data)} 
+            {JSON.stringify(data)} 
         </div>
     )
 }

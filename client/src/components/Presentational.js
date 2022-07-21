@@ -5,7 +5,7 @@ import {
     useNavigate
 } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
-import { client } from '../config/apollo-client-config';
+import { getClient } from '../utils/getClient';
 import {useEffect, useContext} from 'react';
 import { StateContext } from '../containers/Provider'; 
 import Protected from '../containers/Protected';
@@ -52,7 +52,7 @@ export default function Presentational() {
               state.token === "" ? 
                 <Spinner />
                 :
-                <ApolloProvider client={client}>
+                <ApolloProvider client={getClient(state.token)}>
                     <Router>
                         <Routes>
                             <Route path="/" element={

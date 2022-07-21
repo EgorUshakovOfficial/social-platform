@@ -11,20 +11,12 @@ import { useQuery, useSubscription} from '@apollo/client';
 import Spinner from './Spinner'; 
 export default function CurrentPosts() {
     const [state] = useContext(StateContext); 
-    const { data, error, loading } = useQuery(GET_POSTS, {
-        context: {
-            headers: {
-                authorization: `bearer ${state.token}`
-            }
-        }
-    }); 
-
-    if (loading) { return <Spinner /> }
+    const { data, error, loading } = useQuery(GET_POSTS); 
 
     if (error) {return <p>Error! Something has gone wrong!</p>}
     return (
           <>
-            {data.posts.map(obj => {
+            {loading === false && data.posts.map(obj => {
                 return (<div className="post" key={obj._id}>
                     <div className="user-container">
                        <div className="pic-div">

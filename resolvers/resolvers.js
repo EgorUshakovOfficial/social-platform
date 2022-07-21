@@ -1,7 +1,10 @@
-const { PubSub } = require('graphql-subscriptions'); 
+const { PubSub, withFilter} = require('graphql-subscriptions'); 
 let pubsub = new PubSub(); 
 const resolvers = {
     Query: {
+        user: (_, __, { user }) => {
+            return user
+        },
         posts: (_, __, { dataSources }) => {
             return dataSources.posts.getPosts()
         }
@@ -18,16 +21,14 @@ const resolvers = {
                     _id: post._id,
                     description: post.description,
                     createdAt: post.createdAt,
-                    authorId: user._id,
+                    authorId: user._id.toString(),
                     numComments: post.numComments,
                     numLikes: post.numLikes
                 }
 
-                // Publish on creation of post 
+                // Publish on creation of post  
                 await pubsub.publish("POST_CREATED", {
-                    newPost: {
-                        ...post
-                    }
+                    newPost: { ...post }
                 })
 
                 return {
@@ -50,7 +51,17 @@ const resolvers = {
     },
     Subscription: {
         newPost: {
-            subscribe: () => pubsub.asyncIterator("POST_CREATED")
+            subscribe: withFilter(
+                () => pubsub.asyncIterator("POST_CREATED"), 
+                (payload, variables) => {
+                    const { newPost } = payload
+                    console.log(payload)
+                    console.log(`New Post ${newPost.authorId}`)
+                    console.log(`Variables ${variables.userId}`)
+                    console.log(newPost.authorId !== variables.userId)
+                    return (newPost.authorId !== variables.userId)
+                }
+            )
         }
     }, 
     Post: {

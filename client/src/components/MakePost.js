@@ -1,10 +1,10 @@
-import { useMutation } from '@apollo/client';
+import { useMutation} from '@apollo/client';
 import { CREATE_POST } from '../mutations/postMutations';
-import { GET_POSTS } from '../queries/postsQuery'; 
+import { GET_POSTS } from '../queries/postsQuery';
 import { StateContext } from '../containers/Provider'; 
 import { useState, useContext} from 'react';
 
-export default function MakePost() {
+export default function MakePost({user}) {
     // State 
     const [description, setDescription] = useState('')
     const [state] = useContext(StateContext);
@@ -13,12 +13,7 @@ export default function MakePost() {
     const [createPost] = useMutation(CREATE_POST, {
         variables: {
             description
-        }, 
-        context: {
-            headers: {
-                authorization: `bearer ${state.token}`
-            }
-        }, 
+        },
         update(cache, { data: { createPost: { post } } }) {
             const { posts } = cache.readQuery({ query: GET_POSTS })
             cache.writeQuery({
@@ -35,7 +30,6 @@ export default function MakePost() {
         createPost(description)
     }
 
-    let name = "John"
     return (
         <form id="make-post" onSubmit={handleSubmit}>
             <div id="make-post-upper">
@@ -50,7 +44,7 @@ export default function MakePost() {
                     id="make-post-textarea"
                     value={description}
                     onChange={e => setDescription(e.target.value)}
-                    placeholder={`What's on your mind, ${name}?`}
+                    placeholder={`What's on your mind, ${user.name}?`}
                 />
             </div>
             <div id="make-post-lower">

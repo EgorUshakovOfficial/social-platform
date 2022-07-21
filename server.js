@@ -66,7 +66,8 @@ const startApolloServer = async (typeDefs, resolvers) => {
     const serverCleanup = useServer({
         schema,
         context: async (ctx, msg, args) => {
-            let token = getToken({ _id: "62c9da370bd03a3ab67c4be3" })
+            //let token = getToken({ _id: "62c9da370bd03a3ab67c4be3" })
+            let token = ctx.connectionParams?.authentication || ""
             let user = await getUser(token)
             if (user === null) {
                 throw new Error("Unauthorized")
@@ -89,9 +90,8 @@ const startApolloServer = async (typeDefs, resolvers) => {
             posts
         }),
         context: async ({ req }) => {
-            //let token = connection ? connection.context?.authorization || ""
-            //    : req.headers?.authorization.replace(/bearer\s/i, "") || ""
-            let token = getToken({ _id: "62c9da370bd03a3ab67c4be3" })
+            let token = req.headers?.authorization.replace(/bearer\s/i, "") || ""
+            //let token = getToken({ _id: "62c9da370bd03a3ab67c4be3" })
             let user = await getUser(token)
             if (user === null) {
                 throw new Error("Unauthorized")

@@ -2,7 +2,7 @@ const { gql } = require('apollo-server');
 
 const typeDefs = gql`
     type Query{
-        user(id: ID!): User!
+        user: User!
         posts: [Post!]
     }
 
@@ -11,7 +11,7 @@ const typeDefs = gql`
     }
 
     type Subscription{
-        newPost: Post
+        newPost(userId: ID!): Post
     }
 
     type CreatePostResponse{

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'; 
 
 const POST_SUBSCRIPTION = gql`
-    subscription OnPostCreated{
-        newPost{
+    subscription OnPostCreated($userId: ID!){
+        newPost(userId: $userId){
             description
             createdAt
             numLikes
