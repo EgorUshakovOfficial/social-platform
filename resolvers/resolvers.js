@@ -55,10 +55,6 @@ const resolvers = {
                 () => pubsub.asyncIterator("POST_CREATED"), 
                 (payload, variables) => {
                     const { newPost } = payload
-                    console.log(payload)
-                    console.log(`New Post ${newPost.authorId}`)
-                    console.log(`Variables ${variables.userId}`)
-                    console.log(newPost.authorId !== variables.userId)
                     return (newPost.authorId !== variables.userId)
                 }
             )

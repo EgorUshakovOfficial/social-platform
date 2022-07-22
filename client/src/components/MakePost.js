@@ -28,6 +28,7 @@ export default function MakePost({user}) {
         // Prevent form from being submitted to server 
         e.preventDefault()
         createPost(description)
+        setDescription('')
     }
 
     return (

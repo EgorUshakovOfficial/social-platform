@@ -9,6 +9,8 @@ import { StateContext } from '../containers/Provider';
 import { GET_POSTS } from '../queries/postsQuery';
 import { useQuery, useSubscription} from '@apollo/client'; 
 import Spinner from './Spinner'; 
+import {formatTime} from '../utils/formatTime'; 
+
 export default function CurrentPosts() {
     const [state] = useContext(StateContext); 
     const { data, error, loading } = useQuery(GET_POSTS); 
@@ -28,7 +30,7 @@ export default function CurrentPosts() {
                         </div>
                         <div className="user-info">
                             <div className="user-name">{obj.author.name}</div>
-                            <span className="post-time">{obj.createdAt}</span>
+                            <span className="post-time">{formatTime(obj.createdAt)}</span>
                         </div>
                     </div>
                     <p className="post-description">
