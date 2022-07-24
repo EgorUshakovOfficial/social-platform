@@ -7,11 +7,12 @@ import {
 import {useContext} from 'react'; 
 import { StateContext } from '../containers/Provider'; 
 import { GET_POSTS } from '../queries/postsQuery';
-import { useQuery, useSubscription} from '@apollo/client'; 
+import { useQuery, useSubscription } from '@apollo/client'; 
+import Post from './Post'; 
 import Spinner from './Spinner'; 
 import {formatTime} from '../utils/formatTime'; 
 
-export default function CurrentPosts() {
+export default function CurrentPosts({user}) {
     const [state] = useContext(StateContext); 
     const { data, error, loading } = useQuery(GET_POSTS); 
 
@@ -19,44 +20,26 @@ export default function CurrentPosts() {
     return (
           <>
             {loading === false && data.posts.map(obj => {
-                return (<div className="post" key={obj._id}>
-                    <div className="user-container">
-                       <div className="pic-div">
-                            <img
-                                className="profile-pic"
-                                src={require(`../images/profile-pic.png`)}
-                                alt="Picture of user"
-                            />
-                        </div>
-                        <div className="user-info">
-                            <div className="user-name">{obj.author.name}</div>
-                            <span className="post-time">{formatTime(obj.createdAt)}</span>
-                        </div>
-                    </div>
-                    <p className="post-description">
-                        {obj.description}
-                    </p>
-                    <div className="likes-comments">
-                        <div className="num-likes">
-                            <FontAwesomeIcon icon={faThumbsUp} /> {obj.numLikes}
-                        </div>
-                        <div className="num-comments">
-                            {obj.numComments} Comments 
-                        </div>
-                    </div>
-                    <div className="divider" />
-                    <div className="reactions-container">
-                        <button className="reaction">
-                            Like <FontAwesomeIcon icon={faThumbsUp} />
-                        </button>
-                        <button className="reaction">
-                            Comment<FontAwesomeIcon icon={faComment} />
-                        </button>
-                        <button className="reaction">
-                            Share<FontAwesomeIcon icon={faShare} />
-                        </button>
-                    </div>
-                </div>)
+                const {
+                    _id: postId,
+                    author: {
+                        name: authorName
+                    },
+                    description,
+                    createdAt,
+                    likes,
+                    comments
+                } = obj
+                return (<Post
+                    key={postId}
+                    user={user}
+                    postId={postId}
+                    authorName={authorName}
+                    description={description}
+                    createdAt={createdAt}
+                    likes={likes}
+                    comments={comments}
+                />)
             })}
         </>
     )

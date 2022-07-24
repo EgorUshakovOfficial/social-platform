@@ -7,6 +7,9 @@ const sessionSchema = new Schema({
     createdAt: { type: Date, default: Date.now }
 })
 
+// Like session 
+
+
 // User schema 
 const userSchema = new Schema({
     name: { type: String}, 

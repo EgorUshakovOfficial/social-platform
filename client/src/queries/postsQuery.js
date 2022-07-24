@@ -6,8 +6,8 @@ const GET_POSTS = gql`
             _id
             description
             createdAt
-            numLikes
-            numComments
+            likes
+            comments
             author{
                 name
             }
@@ -15,4 +15,19 @@ const GET_POSTS = gql`
     }
 `
 
-export { GET_POSTS }; 
+const GET_POST = gql`
+    query getPost($postId: ID!){
+        post(postId: $postId){
+            _id
+            description
+            createdAt
+            likes
+            comments
+            author{
+                name
+            }
+        }
+    }
+`
+
+export { GET_POSTS, GET_POST}; 

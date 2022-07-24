@@ -7,6 +7,9 @@ const resolvers = {
         },
         posts: (_, __, { dataSources }) => {
             return dataSources.posts.getPosts()
+        }, 
+        post: (_, {postId}, { dataSources }) => {
+            return dataSources.posts.getPost(postId)
         }
     },
     Mutation: {
@@ -22,8 +25,8 @@ const resolvers = {
                     description: post.description,
                     createdAt: post.createdAt,
                     authorId: user._id.toString(),
-                    numComments: post.numComments,
-                    numLikes: post.numLikes
+                    comments: post.comments,
+                    likes: post.likes
                 }
 
                 // Publish on creation of post  
@@ -41,12 +44,34 @@ const resolvers = {
             }
             catch (err) {
                 return {
+                    success: false,
                     code: err.extensions.response.status,
                     error: err.extensions.response.body,
-                    success: false,
                     post: null
                 }
             }
+        }, 
+
+        likePost: async (_, { postId }, { dataSources, user}) => {
+            try {
+                let post = await dataSources.posts.updateLikes(postId, user.name)
+                console.log(post)
+                return {
+                    success: true, 
+                    code: 200, 
+                    message: `Likes has been successfully updated for post ${postId} and saved in database`, 
+                    post
+                }
+            }
+            catch (err) {
+                return {
+                    success: false,
+                    code: err.extensions.response.status,
+                    error: err.extensions.response.body,
+                    post: null
+                } 
+            }
+
         }
     },
     Subscription: {

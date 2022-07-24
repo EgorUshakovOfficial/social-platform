@@ -7,7 +7,7 @@ import {
     faComment,
     faShare
 } from '@fortawesome/free-solid-svg-icons';
-import {formatTime} from '../utils/formatTime'; 
+import Post from './Post'; 
 
 export default function NewPosts({ user }) {
     // State 
@@ -26,46 +26,25 @@ export default function NewPosts({ user }) {
     return (
         <>
             {newPosts.map(obj => {
-                return (
-                    <div className="post" key={obj._id}>
-                        <div className="user-container">
-                            <div className="pic-div">
-                                <img
-                                    className="profile-pic"
-                                    src={require(`../images/profile-pic.png`)}
-                                    alt="Picture of user"
-                                />
-                            </div>
-                            <div className="user-info">
-                                <div className="user-name">{obj.author.name}</div>
-                                <span className="post-time">{formatTime(obj.createdAt)}</span>
-                            </div>
-                        </div>
-                        <p className="post-description">
-                            {obj.description}
-                        </p>
-                        <div className="likes-comments">
-                            <div className="num-likes">
-                                <FontAwesomeIcon icon={faThumbsUp} /> {obj.numLikes}
-                            </div>
-                            <div className="num-comments">
-                                {obj.numComments} Comments
-                            </div>
-                        </div>
-                        <div className="divider" />
-                        <div className="reactions-container">
-                            <button className="reaction">
-                                Like <FontAwesomeIcon icon={faThumbsUp} />
-                            </button>
-                            <button className="reaction">
-                                Comment<FontAwesomeIcon icon={faComment} />
-                            </button>
-                            <button className="reaction">
-                                Share<FontAwesomeIcon icon={faShare} />
-                            </button>
-                        </div>
-                    </div>
-                )
+                const {
+                    _id: postId,
+                    author: {
+                        name: authorName
+                    }, 
+                    description, 
+                    createdAt, 
+                    likes, 
+                    comments
+                } = obj 
+                return (<Post
+                    user={user}
+                    postId={postId}
+                    authorName={authorName}
+                    description={description}
+                    createdAt={createdAt}
+                    likes={likes}
+                    comments={comments}
+                />)
             })}
         </>
     )

@@ -7,8 +7,8 @@ const CREATE_POST = gql`
                 _id
                 description
                 createdAt
-                numComments
-                numLikes
+                comments
+                likes
                 author{
                     name
                 }
@@ -17,4 +17,14 @@ const CREATE_POST = gql`
     }
 `; 
 
-export { CREATE_POST };  
+const LIKE_POST = gql`
+    mutation LikePost($postId: ID!){
+        likePost(postId: $postId){
+            post{
+                likes
+            }
+        }
+    }
+`
+
+export { CREATE_POST, LIKE_POST};  

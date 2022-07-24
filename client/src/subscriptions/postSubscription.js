@@ -6,8 +6,8 @@ const POST_SUBSCRIPTION = gql`
             _id
             description
             createdAt
-            numLikes
-            numComments
+            likes
+            comments
             author{
                 name
             }

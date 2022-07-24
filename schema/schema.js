@@ -4,17 +4,19 @@ const typeDefs = gql`
     type Query{
         user: User!
         posts: [Post!]
+        post(postId: ID!): Post!
     }
 
     type Mutation{
-        createPost(description: String!): CreatePostResponse!
+        createPost(description: String!): PostResponse!
+        likePost(postId: ID!): PostResponse! 
     }
 
     type Subscription{
         newPost(userId: ID!): Post
     }
 
-    type CreatePostResponse{
+    type PostResponse{
         success: Boolean!
         code: Int!
         message: String!
@@ -32,8 +34,8 @@ const typeDefs = gql`
         description: String!
         createdAt: String!
         author: User!
-        numComments: Int!
-        numLikes: Int!
+        comments: [String!]!
+        likes: [String!]!
     }
 `
 
