@@ -54,7 +54,7 @@ const resolvers = {
 
         likePost: async (_, { postId }, { dataSources, user}) => {
             try {
-                let post = await dataSources.posts.updateLikes(postId, user.name)
+                let post = await dataSources.posts.updateLikes(postId, user.name, user._id.toString())
                 console.log(post)
                 return {
                     success: true, 

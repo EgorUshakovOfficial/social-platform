@@ -45,10 +45,28 @@ export const getClient = token => {
         authLink.concat(httpLink, authLink)
     );
 
+    // Cache 
+    const cache = new InMemoryCache({
+        typePolicies: {
+            Post: {
+                fields: {
+                    likes: {
+                        merge(existing, incoming) {
+                            return incoming 
+                        }
+                    }
+                }
+            }, 
+            Like: {
+                keyFields: ["userId"]
+            }
+        }
+    })
+
     // Set up Apollo client 
     const client = new ApolloClient({
         link: splitLink,
-        cache: new InMemoryCache()
+        cache
     })
 
     return client

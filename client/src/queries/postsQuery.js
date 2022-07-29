@@ -6,7 +6,10 @@ const GET_POSTS = gql`
             _id
             description
             createdAt
-            likes
+            likes{
+                userName
+                userId
+            }
             comments
             author{
                 name
@@ -21,7 +24,10 @@ const GET_POST = gql`
             _id
             description
             createdAt
-            likes
+            likes{
+                userName
+                userId
+            }
             comments
             author{
                 name

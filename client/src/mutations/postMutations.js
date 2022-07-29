@@ -8,7 +8,10 @@ const CREATE_POST = gql`
                 description
                 createdAt
                 comments
-                likes
+                likes{
+                    userName
+                    userId
+                }
                 author{
                     name
                 }
@@ -21,7 +24,10 @@ const LIKE_POST = gql`
     mutation LikePost($postId: ID!){
         likePost(postId: $postId){
             post{
-                likes
+                likes{
+                    userName
+                    userId
+                }
             }
         }
     }

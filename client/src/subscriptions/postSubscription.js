@@ -6,7 +6,10 @@ const POST_SUBSCRIPTION = gql`
             _id
             description
             createdAt
-            likes
+            likes{
+                userName
+                userId
+            }
             comments
             author{
                 name

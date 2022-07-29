@@ -24,7 +24,14 @@ class Posts extends MongoDataSource {
 
         // Update likes array in specific post
         let likes = post.likes 
-        likes.push(userName)
+        let index = likes.findIndex(obj => obj.userId === userId)
+
+        // If user already liked post, then unlike the post 
+        if (index === -1) {
+            likes.push({ userName, userId })
+        } else {
+            likes.splice(index, 1)
+        }
 
         // Find specific post in database and update its likes array 
         await this.model.findOneAndUpdate({ _id: postId }, { likes: [...likes] })

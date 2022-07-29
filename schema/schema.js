@@ -29,13 +29,18 @@ const typeDefs = gql`
         email: String!  
     }
 
+    type Like{
+        userId: ID! 
+        userName: String! 
+    }
+
     type Post{
         _id: ID!
         description: String!
         createdAt: String!
         author: User!
         comments: [String!]!
-        likes: [String!]!
+        likes: [Like!]!
     }
 `
 
