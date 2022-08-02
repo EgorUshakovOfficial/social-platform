@@ -27,7 +27,7 @@ export default function Post({
     })
 
     // Like subscription 
-    const { data, loading } = useSubscription(LIKE_SUBSCRIPTION)
+    useSubscription(LIKE_SUBSCRIPTION)
 
     return (
         <div className="post" key={postId}>

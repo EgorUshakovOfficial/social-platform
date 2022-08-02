@@ -1,6 +1,5 @@
 import { StateContext } from '../containers/Provider';
-import CurrentPosts from '../components/CurrentPosts'; 
-import NewPosts from '../components/NewPosts'; 
+import Posts from '../components/Posts'; 
 import MakePost from '../components/MakePost';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
@@ -38,8 +37,7 @@ export default function Dashboard() {
             <Header />
             <div id="posts">
                 <MakePost user={data.user} />
-                <CurrentPosts user={data.user } />
-                <NewPosts user={data.user} />
+                <Posts user={data.user } />
             </div>
             <Sidebar />
         </div>
