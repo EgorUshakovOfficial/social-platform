@@ -55,7 +55,21 @@ const resolvers = {
         likePost: async (_, { postId }, { dataSources, user}) => {
             try {
                 let post = await dataSources.posts.updateLikes(postId, user.name, user._id.toString())
-                console.log(post)
+
+                post = {
+                    _id: post._id,
+                    description: post.description,
+                    createdAt: post.createdAt,
+                    authorId: user._id.toString(),
+                    comments: post.comments,
+                    likes: post.likes
+                }
+
+                // Publish when user likes specific post
+                await pubsub.publish("POST_LIKED", {
+                    likedPost: {...post}
+                })
+
                 return {
                     success: true, 
                     code: 200, 
@@ -83,6 +97,9 @@ const resolvers = {
                     return (newPost.authorId !== variables.userId)
                 }
             )
+        }, 
+        likedPost: {
+            subscribe: () => pubsub.asyncIterator("POST_LIKED")
         }
     }, 
     Post: {

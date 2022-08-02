@@ -18,4 +18,16 @@ const POST_SUBSCRIPTION = gql`
     }
 `
 
-export {POST_SUBSCRIPTION}
+const LIKE_SUBSCRIPTION = gql`
+    subscription OnPostLiked{
+        likedPost{
+            _id
+            likes{
+                userName
+                userId
+            }
+        }
+    }
+`
+
+export {POST_SUBSCRIPTION, LIKE_SUBSCRIPTION}

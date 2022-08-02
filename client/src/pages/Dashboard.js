@@ -38,7 +38,7 @@ export default function Dashboard() {
             <Header />
             <div id="posts">
                 <MakePost user={data.user} />
-                <CurrentPosts />
+                <CurrentPosts user={data.user } />
                 <NewPosts user={data.user} />
             </div>
             <Sidebar />

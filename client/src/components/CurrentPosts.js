@@ -15,7 +15,7 @@ import {formatTime} from '../utils/formatTime';
 export default function CurrentPosts({user}) {
     const [state] = useContext(StateContext); 
     const { data, error, loading } = useQuery(GET_POSTS); 
-
+  
     if (error) {return <p>Error! Something has gone wrong!</p>}
     return (
           <>

@@ -1,6 +1,7 @@
-import { useMutation } from "@apollo/client"; 
+import { useMutation, useSubscription} from "@apollo/client"; 
 import { LIKE_POST } from '../mutations/postMutations';
 import { GET_POSTS } from '../queries/postsQuery';
+import { LIKE_SUBSCRIPTION } from '../subscriptions/postSubscription'; 
 import { formatTime } from '../utils/formatTime'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -22,7 +23,11 @@ export default function Post({
     const [likePost] = useMutation(LIKE_POST, {
         variables: {
             postId 
-        }, 
+        }
+    })
+
+    // Like subscription 
+    const { data, loading } = useSubscription(LIKE_SUBSCRIPTION, {
         update(cache, { data }) {
             // All posts
             let { posts } = cache.readQuery({
@@ -44,6 +49,9 @@ export default function Post({
             })
         }
     })
+
+    console.log(loading)
+    console.log(data)
 
     return (
         <div className="post" key={postId}>
