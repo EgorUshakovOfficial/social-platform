@@ -264,6 +264,10 @@ textarea{
     font-weight: 800;
 }
 
+.liked{ 
+    color: blue; 
+}
+
 
 @media(max-width: 695px) {
     #home {

@@ -27,31 +27,7 @@ export default function Post({
     })
 
     // Like subscription 
-    const { data, loading } = useSubscription(LIKE_SUBSCRIPTION, {
-        update(cache, { data }) {
-            // All posts
-            let { posts } = cache.readQuery({
-                query: GET_POSTS
-            })
-
-            posts = [...posts]
-
-            // Liked  post
-            let likedPost = { ...posts.filter(obj => obj._id === postId)[0] }
-            let index = posts.findIndex(obj => obj._id === postId);
-            likedPost.likes = [...data.likePost.post.likes]
-            posts[index] = likedPost
-
-            // Update cache for posts 
-            cache.writeQuery({
-                query: GET_POSTS,
-                data: { posts: [...posts] }
-            })
-        }
-    })
-
-    console.log(loading)
-    console.log(data)
+    const { data, loading } = useSubscription(LIKE_SUBSCRIPTION)
 
     return (
         <div className="post" key={postId}>
@@ -81,7 +57,11 @@ export default function Post({
             </div>
             <div className="divider" />
             <div className="reactions-container">
-                <button className="reaction" onClick={() => likePost(postId)}>
+                <button
+                    className="reaction"
+                    style={{ color: likes.filter(obj => obj.userId === user._id).length ? "blue" : "black" }}
+                    onClick={() => likePost(postId)}
+                >
                     Like <FontAwesomeIcon icon={faThumbsUp} />
                 </button>
                 <button className="reaction">
