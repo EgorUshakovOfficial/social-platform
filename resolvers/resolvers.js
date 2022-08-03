@@ -10,6 +10,9 @@ const resolvers = {
         }, 
         post: (_, {postId}, { dataSources }) => {
             return dataSources.posts.getPost(postId)
+        }, 
+        comments: (_, { postId }, { dataSources }) => {
+            return dataSources.posts.getComments(postId)
         }
     },
     Mutation: {
@@ -86,6 +89,37 @@ const resolvers = {
                 } 
             }
 
+        }, 
+
+        commentPost: async (_, { postId, comment}, { dataSources, user }) => {
+            try {
+                let post = await dataSources.posts.updateComments(postId, comment, user)
+                
+                post = {
+                    _id: post._id,
+                    description: post.description,
+                    createdAt: post.createdAt,
+                    authorId: user._id.toString(),
+                    comments: post.comments,
+                    likes: post.likes
+                }
+
+                return {
+                    success: true,
+                    code: 200,
+                    message: `Comments has been successfully updated for comment ${postId} and saved in database`,
+                    post
+                }
+
+
+            } catch (err) {
+                return {
+                    success: false, 
+                    code: err.extensions.response.status, 
+                    error: err.extensions.response.body, 
+                    post: null
+                }
+            }
         }
     },
     Subscription: {

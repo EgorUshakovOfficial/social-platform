@@ -7,7 +7,10 @@ const CREATE_POST = gql`
                 _id
                 description
                 createdAt
-                comments
+                comments{
+                    userId
+                    comment
+                }
                 likes{
                     userName
                     userId
@@ -31,6 +34,20 @@ const LIKE_POST = gql`
             }
         }
     }
-`
+`;
 
-export { CREATE_POST, LIKE_POST};  
+const COMMENT_POST = gql`
+    mutation CommentPost($postId: ID!, $comment: String!){
+        commentPost(postId: $postId, comment: $comment){
+            post{
+                comments{
+                    userId
+                    userName
+                    comment
+                }
+            }
+        }
+    }
+`;
+
+export { CREATE_POST, LIKE_POST, COMMENT_POST};  

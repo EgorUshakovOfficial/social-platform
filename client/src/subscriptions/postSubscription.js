@@ -10,7 +10,11 @@ const POST_SUBSCRIPTION = gql`
                 userName
                 userId
             }
-            comments
+            comments{
+                userId
+                userName
+                comment
+            }
             author{
                 name
             }

@@ -10,7 +10,11 @@ const GET_POSTS = gql`
                 userName
                 userId
             }
-            comments
+            comments{
+                userId
+                userName
+                comment
+            }
             author{
                 name
             }

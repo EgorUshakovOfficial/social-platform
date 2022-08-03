@@ -9,12 +9,19 @@ const likeSchema = new Schema({
     userId: {type: String}
 })
 
+// Comment schema 
+const commentSchema = new Schema({
+    userId: { type: String },
+    userName: { type: String },
+    comment: { type: String },
+}); 
+
 // Post schema 
 const postSchema = new Schema({
     createdAt: { type: Date, default: Date.now},
     description: { type: String, isRequired: true },
     likes: { type: [likeSchema], default: [] },
-    comments: { type: [String], default: [] },
+    comments: { type: [commentSchema], default: [] },
     authorId: {type: String}
 }); 
 

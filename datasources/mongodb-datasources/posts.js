@@ -18,6 +18,15 @@ class Posts extends MongoDataSource {
         return post;
     }
 
+    async getComments(postId) {
+        // Retrieve specific post from database 
+        let post = await this.findOneById(postId)
+
+        console.log(post)
+
+        return post.comments 
+    }
+
     async updateLikes(postId, userName, userId) {
         // Retrieve specific post from database 
         let post = await this.findOneById(postId)
@@ -37,6 +46,30 @@ class Posts extends MongoDataSource {
         await this.model.findOneAndUpdate({ _id: postId }, { likes: [...likes] })
 
         return post  
+    }
+
+    async updateComments(postId, comment, userObj) {
+       
+        // Retrieve specific post from database 
+        let post = await this.findOneById(postId);
+
+        console.log(userObj)
+
+        // Update comments array in specific post 
+        let comments = post.comments
+        let commentObj = {
+            userId: userObj._id.toString(),
+            userName: userObj.name,
+            comment
+        }
+        comments.push(commentObj)
+
+        // Find specific post in database and update its comments array 
+        await this.model.findOneAndUpdate({ _id: postId }, { comments: [...comments] })
+
+        console.log(post)
+
+        return post
     }
 }
 

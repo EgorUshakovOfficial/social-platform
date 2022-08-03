@@ -1,14 +1,46 @@
 import { useState } from 'react'; 
-export default function CommentForm() {
+import { useMutation } from '@apollo/client'; 
+import { COMMENT_POST } from '../mutations/postMutations';
+import { GET_COMMENTS } from '../queries/commentsQuery'; 
+export default function CommentForm({user, postId}) {
     // State 
     const [comment, setComment] = useState('')
+
+    const [commentPost] = useMutation(COMMENT_POST, {
+        variables: {
+            postId,
+            comment
+        }, 
+        update(cache, {data}) {
+            
+            // Previous cache of comments 
+            const { comments } = cache.readQuery({
+                query: GET_COMMENTS, 
+                variables: {
+                    postId
+                }
+            })
+            console.log(data)
+            // Update cache 
+            cache.writeQuery({
+                query: GET_COMMENTS,
+                variables: {
+                    postId
+                }, 
+                data: {comments: [...data.commentPost.post.comments]}
+            })
+            
+        }
+    })
 
     // Handle submit 
     const handleSubmit = e => {
         // Prevent form from being submitted to the server 
         e.preventDefault()
 
+        commentPost(postId, comment)
 
+        setComment('')
     }
 
     return (

@@ -5,11 +5,13 @@ const typeDefs = gql`
         user: User!
         posts: [Post!]
         post(postId: ID!): Post!
+        comments(postId: ID!): [Comment!]!
     }
 
     type Mutation{
         createPost(description: String!): PostResponse!
         likePost(postId: ID!): PostResponse! 
+        commentPost(postId: ID!, comment: String!): PostResponse!
     }
 
     type Subscription{
@@ -35,12 +37,18 @@ const typeDefs = gql`
         userName: String! 
     }
 
+    type Comment{
+        userId: ID!
+        userName: String!
+        comment: String!
+    }
+
     type Post{
         _id: ID!
         description: String!
         createdAt: String!
         author: User!
-        comments: [String!]!
+        comments: [Comment!]!
         likes: [Like!]!
     }
 `

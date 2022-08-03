@@ -81,8 +81,8 @@ export default function Post({
             {viewComments &&
                 <>
                     <div className="divider"  />
-                    <CommentForm />
-                    <Comments />
+                    <CommentForm user={user} postId={postId} />
+                <Comments postId={postId } />
                 </>
             }
 
