@@ -75,7 +75,7 @@ textarea{
 
 .divider{
     border-bottom: 1px solid lightgray;
-    margin-bottom: 0.8em;
+    margin: 0.8em auto;
 }
 
 /* Dashboard */
@@ -157,6 +157,7 @@ textarea{
     justify-content: center;
     align-items: center;
     margin-right: 0.8em;
+    padding: 0.2em;
 }
 
 #friends-book-logo, 
@@ -264,10 +265,48 @@ textarea{
     font-weight: 800;
 }
 
-.liked{ 
-    color: blue; 
+/* Comments */
+#comment-form, .comment {
+    display: grid; 
+    gap: 5px;
+    margin-bottom: 0.8em;
 }
 
+#comment-form{
+    /*grid-template-columns: 50px 80% 1fr;
+    justify-content: space-around;
+    align-items: center;*/
+    display: flex;
+    align-items: center;
+}
+
+.comment {
+    grid-template-columns: 180px auto;
+    background: #E4E6EB;
+    border-radius: 8px;
+
+}
+
+.comment-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2em;
+}
+
+.comment-body{
+    display: flex;
+    align-items: center;
+    padding: 0.4em;
+}
+
+
+#comment-input{
+    width: calc(100% - 136px);
+    padding: 0.2em;
+    border-radius: 20px;
+    margin: 0 0 0 auto;
+}
 
 @media(max-width: 695px) {
     #home {

@@ -1,4 +1,5 @@
-import { useMutation, useSubscription} from "@apollo/client"; 
+import { useState } from 'react'; 
+import { useMutation, useSubscription } from "@apollo/client"; 
 import { LIKE_POST } from '../mutations/postMutations';
 import { GET_POSTS } from '../queries/postsQuery';
 import { LIKE_SUBSCRIPTION } from '../subscriptions/postSubscription'; 
@@ -9,6 +10,8 @@ import {
     faComment,
     faShare
 } from '@fortawesome/free-solid-svg-icons';
+import Comments from './Comments'; 
+import CommentForm from './CommentForm'; 
 
 export default function Post({
     user,
@@ -18,6 +21,9 @@ export default function Post({
     description,
     likes,
     comments }) {
+
+    // State 
+    const [viewComments, setViewComments] = useState(false)
 
     // Like mutation
     const [likePost] = useMutation(LIKE_POST, {
@@ -64,13 +70,22 @@ export default function Post({
                 >
                     Like <FontAwesomeIcon icon={faThumbsUp} />
                 </button>
-                <button className="reaction">
+                <button className="reaction" onClick={() => setViewComments(true)}>
                     Comment<FontAwesomeIcon icon={faComment} />
                 </button>
                 <button className="reaction">
                     Share<FontAwesomeIcon icon={faShare} />
                 </button>
             </div>
+
+            {viewComments &&
+                <>
+                    <div className="divider"  />
+                    <CommentForm />
+                    <Comments />
+                </>
+            }
+
         </div>
     )
 }
