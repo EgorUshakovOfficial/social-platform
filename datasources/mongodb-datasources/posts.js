@@ -22,8 +22,6 @@ class Posts extends MongoDataSource {
         // Retrieve specific post from database 
         let post = await this.findOneById(postId)
 
-        console.log(post)
-
         return post.comments 
     }
 

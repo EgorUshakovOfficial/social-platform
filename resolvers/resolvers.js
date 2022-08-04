@@ -94,7 +94,7 @@ const resolvers = {
         commentPost: async (_, { postId, comment}, { dataSources, user }) => {
             try {
                 let post = await dataSources.posts.updateComments(postId, comment, user)
-                
+
                 post = {
                     _id: post._id,
                     description: post.description,
@@ -103,6 +103,11 @@ const resolvers = {
                     comments: post.comments,
                     likes: post.likes
                 }
+
+                // Publish when use comments on post 
+                await pubsub.publish("POST_COMMENTED", {
+                    commentedPost: {...post}
+                })
 
                 return {
                     success: true,
@@ -134,6 +139,9 @@ const resolvers = {
         }, 
         likedPost: {
             subscribe: () => pubsub.asyncIterator("POST_LIKED")
+        }, 
+        commentedPost: {
+            subscribe: () => pubsub.asyncIterator("POST_COMMENTED")
         }
     }, 
     Post: {

@@ -1,7 +1,7 @@
 import { useState } from 'react'; 
-import { useMutation } from '@apollo/client'; 
+import { useMutation} from '@apollo/client'; 
 import { COMMENT_POST } from '../mutations/postMutations';
-import { GET_COMMENTS } from '../queries/commentsQuery'; 
+import { GET_POSTS } from '../queries/postsQuery';  
 export default function CommentForm({user, postId}) {
     // State 
     const [comment, setComment] = useState('')
@@ -11,25 +11,21 @@ export default function CommentForm({user, postId}) {
             postId,
             comment
         }, 
-        update(cache, {data}) {
-            
-            // Previous cache of comments 
-            const { comments } = cache.readQuery({
-                query: GET_COMMENTS, 
-                variables: {
-                    postId
-                }
-            })
-            console.log(data)
-            // Update cache 
+
+        update(cache, { data }) {
+            // Previous cache of posts 
+            let { posts } = cache.readQuery({ query: GET_POSTS })
+            posts = [...posts]
+            let index = posts.findIndex(obj => obj._id === postId)
+            let updatedPost = {...posts[index]}
+            updatedPost.comments = [...data.commentPost.post.comments]
+            posts[index] = updatedPost 
+            console.log(posts)
+            // Update cache for posts 
             cache.writeQuery({
-                query: GET_COMMENTS,
-                variables: {
-                    postId
-                }, 
-                data: {comments: [...data.commentPost.post.comments]}
+                query: GET_POSTS, 
+                data: {posts:[...posts]}
             })
-            
         }
     })
 

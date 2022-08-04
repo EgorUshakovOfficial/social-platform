@@ -54,6 +54,11 @@ export const getClient = token => {
                         merge(existing, incoming) {
                             return incoming 
                         }
+                    }, 
+                    comments: {
+                        merge(existing, incoming) {
+                            return incoming
+                        }
                     }
                 }
             }, 

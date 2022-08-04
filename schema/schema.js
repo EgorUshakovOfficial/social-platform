@@ -17,6 +17,7 @@ const typeDefs = gql`
     type Subscription{
         newPost(userId: ID!): Post
         likedPost: Post
+        commentedPost: Post
     }
 
     type PostResponse{

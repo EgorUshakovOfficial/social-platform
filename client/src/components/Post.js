@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useMutation, useSubscription } from "@apollo/client"; 
 import { LIKE_POST } from '../mutations/postMutations';
 import { GET_POSTS } from '../queries/postsQuery';
-import { LIKE_SUBSCRIPTION } from '../subscriptions/postSubscription'; 
+import { LIKE_SUBSCRIPTION } from '../subscriptions/postSubscription';
+import { COMMENT_SUBSCRIPTION } from '../subscriptions/commentSubscription'; 
 import { formatTime } from '../utils/formatTime'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -34,6 +35,9 @@ export default function Post({
 
     // Like subscription 
     useSubscription(LIKE_SUBSCRIPTION)
+
+    // Comment subscription
+    useSubscription(COMMENT_SUBSCRIPTION)
 
     return (
         <div className="post" key={postId}>
@@ -82,7 +86,7 @@ export default function Post({
                 <>
                     <div className="divider"  />
                     <CommentForm user={user} postId={postId} />
-                <Comments postId={postId } />
+                    <Comments comments={comments} />
                 </>
             }
 

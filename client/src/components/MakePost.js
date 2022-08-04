@@ -1,8 +1,9 @@
-import { useMutation} from '@apollo/client';
+import { useMutation, useSubscription} from '@apollo/client';
 import { CREATE_POST } from '../mutations/postMutations';
 import { GET_POSTS } from '../queries/postsQuery';
 import { StateContext } from '../containers/Provider'; 
-import { useState, useContext} from 'react';
+import { useState, useContext } from 'react';
+import { POST_SUBSCRIPTION } from '../subscriptions/postSubscription'; 
 
 export default function MakePost({user}) {
     // State 
@@ -22,7 +23,6 @@ export default function MakePost({user}) {
             })            
         }
     })
-
 
     const handleSubmit = e => {
         // Prevent form from being submitted to server 
