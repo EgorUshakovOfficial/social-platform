@@ -33,7 +33,8 @@ export default function Posts({user}) {
                 const {
                     _id: postId,
                     author: {
-                        name: authorName
+                        name: authorName, 
+                        _id: authorId
                     },
                     description,
                     createdAt,
@@ -45,6 +46,7 @@ export default function Posts({user}) {
                     key={postId}
                     user={user}
                     postId={postId}
+                    authorId={authorId}
                     authorName={authorName}
                     description={description}
                     createdAt={createdAt}

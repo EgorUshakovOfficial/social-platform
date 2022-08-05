@@ -5,8 +5,7 @@ import {
     faEdit
 } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react'; 
-import CautionModal from './CautionModal'; 
-export default function PostDropdown({postId}) {
+export default function PostDropdown({userId}) {
     // State 
     const [showDisplay, setShowDisplay] = useState(false); 
 
@@ -19,15 +18,23 @@ export default function PostDropdown({postId}) {
                 <FontAwesomeIcon icon={faEllipsis} />
             </div>
             {showDisplay && <div className="post-options">
-                <button className="post-option btn btn-secondary">
+                <button className="post-option btn btn-secondary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editModal"
+                    onClick={() => setShowDisplay(false)}
+                >
                     Edit <FontAwesomeIcon icon={faEdit} />
                 </button>
-                <button type="button" className="post-option btn btn-danger" data-bs-toggle="modal" data-bs-target="#cautionModal">
+                <button
+                    type="button"
+                    className="post-option btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#cautionModal"
+                    onClick={() => setShowDisplay(false)}
+                >
                     Delete <FontAwesomeIcon icon={faTrash} />
                 </button>
-            </div>}
-            <CautionModal postId={postId} />
-            
+            </div>}            
         </div>
     )
 }

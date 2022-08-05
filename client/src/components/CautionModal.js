@@ -34,7 +34,7 @@ export default function CautionModal({postId}) {
                     </div>
 
                     <div className="modal-body">
-                        All posts deleted are unrecoverable. Are you sure you want to delete post?
+                        Are you sure you want to delete post?
                     </div>
 
                     <div className="modal-footer">

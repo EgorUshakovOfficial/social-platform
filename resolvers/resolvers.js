@@ -68,11 +68,41 @@ const resolvers = {
                 return {
                     success: false,
                     code: err.extensions.response.status,
-                    error: err.extensions.response.body,
+                    message: err.extensions.response.body,
                     post: null
                 } 
             }
         }, 
+
+        editPost: async (_, { postId, description }, { dataSources, user}) => {
+            try {
+                let post = await dataSources.posts.editPost(postId, description)
+      
+                post = {
+                    _id: post._id,
+                    description: post.description,
+                    createdAt: post.createdAt,
+                    authorId: user._id.toString(),
+                    comments: post.comments,
+                    likes: post.likes
+                }
+
+                return {
+                    success: true, 
+                    code: 200,
+                    message: `Post with post ID ${postId} has been successfully edited`, 
+                    post
+                }
+            } catch (err) {
+                return {
+                    success: false, 
+                    code: err.extensions.response.status, 
+                    message: err.extensions.response.body, 
+                    post: null
+                }
+            }
+
+        },
 
         likePost: async (_, { postId }, { dataSources, user}) => {
             try {
@@ -103,7 +133,7 @@ const resolvers = {
                 return {
                     success: false,
                     code: err.extensions.response.status,
-                    error: err.extensions.response.body,
+                    message: err.extensions.response.body,
                     post: null
                 } 
             }
@@ -140,7 +170,7 @@ const resolvers = {
                 return {
                     success: false, 
                     code: err.extensions.response.status, 
-                    error: err.extensions.response.body, 
+                    message: err.extensions.response.body, 
                     post: null
                 }
             }

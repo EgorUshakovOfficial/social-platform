@@ -16,6 +16,7 @@ const GET_POSTS = gql`
                 comment
             }
             author{
+                _id
                 name
             }
         }

@@ -58,9 +58,20 @@ const DELETE_POST = gql`
     }
 `
 
+const EDIT_POST = gql`
+    mutation EditPost($postId: ID!, $description: String!){
+        editPost(postId: $postId, description: $description){
+            post{
+                description
+            }
+        }
+    }
+`
+
 export {
     CREATE_POST,
     LIKE_POST,
     COMMENT_POST, 
-    DELETE_POST
+    DELETE_POST, 
+    EDIT_POST
 };  

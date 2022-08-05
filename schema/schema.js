@@ -11,6 +11,7 @@ const typeDefs = gql`
     type Mutation{
         createPost(description: String!): PostResponse!
         deletePost(postId: ID!): PostResponse! 
+        editPost(postId: ID!, description: String!): PostResponse!
         likePost(postId: ID!): PostResponse! 
         commentPost(postId: ID!, comment: String!): PostResponse!
         

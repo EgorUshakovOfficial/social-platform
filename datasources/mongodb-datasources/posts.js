@@ -23,6 +23,11 @@ class Posts extends MongoDataSource {
         return null
     }
 
+    async editPost(postId, description) {
+        let post = await this.model.findOneAndUpdate({ _id: postId }, { description })
+        return post
+    }
+
     async getComments(postId) {
         // Retrieve specific post from database 
         let post = await this.findOneById(postId)

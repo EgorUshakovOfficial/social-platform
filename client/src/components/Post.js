@@ -11,8 +11,11 @@ import {
     faShare, 
 } from '@fortawesome/free-solid-svg-icons';
 import PostDropdown from './PostDropdown';
+import CautionModal from './CautionModal';
+import EditModal from './EditModal';
 import Comments from './Comments'; 
 import CommentForm from './CommentForm'; 
+
 
 export default function Post({
     user,
@@ -53,7 +56,7 @@ export default function Post({
                     <div className="user-name">{authorName}</div>
                     <span className="post-time">{formatTime(createdAt)}</span>
                 </div>
-                <PostDropdown postId={postId} />
+                <PostDropdown />
             </div>
             <p className="post-description">
                 {description}
@@ -90,7 +93,8 @@ export default function Post({
                     <Comments comments={comments} />
                 </>
             }
-
+            <CautionModal postId={postId} />
+            <EditModal postId={postId} />
         </div>
     )
 }

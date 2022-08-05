@@ -212,6 +212,12 @@ textarea{
     margin-bottom: 0.2em;
 }
 
+#edit-post {
+    width: 100%;
+    height: 100px;
+    margin-top: 0.8em;
+}
+
 /*.post-options::before{
     content: '';
     top: -20%;
