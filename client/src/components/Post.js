@@ -53,7 +53,7 @@ export default function Post({
                     <div className="user-name">{authorName}</div>
                     <span className="post-time">{formatTime(createdAt)}</span>
                 </div>
-                <PostDropdown />
+                <PostDropdown postId={postId} />
             </div>
             <p className="post-description">
                 {description}

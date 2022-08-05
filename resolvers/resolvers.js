@@ -16,7 +16,7 @@ const resolvers = {
         }
     },
     Mutation: {
-        createPost: async (_, { description }, { dataSources, user}) => {
+        createPost: async (_, { description }, { dataSources, user }) => {
             try {
                 let post = await dataSources
                     .posts
@@ -52,6 +52,25 @@ const resolvers = {
                     error: err.extensions.response.body,
                     post: null
                 }
+            }
+        },
+
+        deletePost: async (_, { postId }, { dataSources }) => {
+            try {
+                await dataSources.posts.deletePost(postId)
+                return {
+                    success: true,
+                    code: 200,
+                    message: `Post has been successfully deleted`,
+                    post: null
+                }
+            } catch (err) {
+                return {
+                    success: false,
+                    code: err.extensions.response.status,
+                    error: err.extensions.response.body,
+                    post: null
+                } 
             }
         }, 
 

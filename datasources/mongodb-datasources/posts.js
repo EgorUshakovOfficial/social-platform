@@ -18,6 +18,11 @@ class Posts extends MongoDataSource {
         return post;
     }
 
+    async deletePost(postId) {
+        let deletedPost = await this.model.findOneAndRemove({ _id: postId })
+        return null
+    }
+
     async getComments(postId) {
         // Retrieve specific post from database 
         let post = await this.findOneById(postId)
@@ -51,8 +56,6 @@ class Posts extends MongoDataSource {
         // Retrieve specific post from database 
         let post = await this.findOneById(postId);
 
-        console.log(userObj)
-
         // Update comments array in specific post 
         let comments = post.comments
         let commentObj = {
@@ -64,8 +67,6 @@ class Posts extends MongoDataSource {
 
         // Find specific post in database and update its comments array 
         await this.model.findOneAndUpdate({ _id: postId }, { comments: [...comments] })
-
-        console.log(post)
 
         return post
     }

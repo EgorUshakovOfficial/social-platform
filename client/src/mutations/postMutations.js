@@ -50,4 +50,17 @@ const COMMENT_POST = gql`
     }
 `;
 
-export { CREATE_POST, LIKE_POST, COMMENT_POST};  
+const DELETE_POST = gql`
+    mutation DeletePost($postId: ID!){
+        deletePost(postId: $postId){
+            message
+        }
+    }
+`
+
+export {
+    CREATE_POST,
+    LIKE_POST,
+    COMMENT_POST, 
+    DELETE_POST
+};  

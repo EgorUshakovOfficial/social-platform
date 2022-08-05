@@ -48,6 +48,15 @@ export const getClient = token => {
     // Cache 
     const cache = new InMemoryCache({
         typePolicies: {
+            Query: {
+                fields: {
+                    posts: {
+                        merge(existing, incoming) {
+                            return incoming
+                        }
+                    }
+                }   
+            },
             Post: {
                 fields: {
                     likes: {
