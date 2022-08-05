@@ -4,6 +4,7 @@ const StateContext = createContext([{}, () => { }])
 
 let initialState = {
     token: "",
+    dropdown: "",
     loading: false
 }
 

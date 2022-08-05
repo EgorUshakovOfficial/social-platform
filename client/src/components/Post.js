@@ -1,7 +1,6 @@
 import { useState } from 'react'; 
 import { useMutation, useSubscription } from "@apollo/client"; 
 import { LIKE_POST } from '../mutations/postMutations';
-import { GET_POSTS } from '../queries/postsQuery';
 import { LIKE_SUBSCRIPTION } from '../subscriptions/postSubscription';
 import { COMMENT_SUBSCRIPTION } from '../subscriptions/commentSubscription'; 
 import { formatTime } from '../utils/formatTime'; 
@@ -9,8 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faThumbsUp,
     faComment,
-    faShare
+    faShare, 
 } from '@fortawesome/free-solid-svg-icons';
+import PostDropdown from './PostDropdown';
 import Comments from './Comments'; 
 import CommentForm from './CommentForm'; 
 
@@ -41,7 +41,7 @@ export default function Post({
 
     return (
         <div className="post" key={postId}>
-            <div className="user-container">
+            <div className="post-header">
                 <div className="pic-div">
                     <img
                         className="profile-pic"
@@ -53,6 +53,7 @@ export default function Post({
                     <div className="user-name">{authorName}</div>
                     <span className="post-time">{formatTime(createdAt)}</span>
                 </div>
+                <PostDropdown />
             </div>
             <p className="post-description">
                 {description}

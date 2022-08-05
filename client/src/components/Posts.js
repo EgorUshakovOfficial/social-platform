@@ -23,8 +23,6 @@ export default function Posts({user}) {
         })
     }, [])
 
-
-
     if (error) { return <p>Error! Something has gone wrong!</p> }
 
     if (loading) { return <Spinner /> }
