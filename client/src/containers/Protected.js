@@ -1,11 +1,11 @@
 import { useContext } from 'react'; 
-import { StateContext } from './Provider';
+import { AuthContext } from './AuthProvider';
 import Home from '../pages/Home';  
 export default function Protected({children}) {
     // State
-    const [state, _] = useContext(StateContext)  
+    const {token} = useContext(AuthContext)  
 
-    if (state.token === null) {
+    if (token === null) {
         return <Home />
     }
     return<>{ children }</>

@@ -1,12 +1,12 @@
 import './styles/globals.css';
-import { Provider } from './containers/Provider';  
+import { AuthProvider } from './containers/AuthProvider';  
 import Presentational from './components/Presentational';
 
 export default function App() {
     return (
-        <Provider>
+        <AuthProvider>
             <Presentational />
-        </Provider>
+        </AuthProvider>
   );
 }
 

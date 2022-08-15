@@ -1,4 +1,3 @@
-
 import { GET_POSTS } from '../queries/postsQuery';
 import { POST_SUBSCRIPTION } from '../subscriptions/postSubscription'; 
 import { useQuery } from '@apollo/client';
@@ -34,7 +33,6 @@ export default function Posts({user}) {
                     _id: postId,
                     author: {
                         name: authorName, 
-                        _id: authorId
                     },
                     description,
                     createdAt,
@@ -46,7 +44,6 @@ export default function Posts({user}) {
                     key={postId}
                     user={user}
                     postId={postId}
-                    authorId={authorId}
                     authorName={authorName}
                     description={description}
                     createdAt={createdAt}

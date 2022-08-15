@@ -1,49 +1,16 @@
-import { useState, useContext } from 'react'; 
-import { useNavigate } from 'react-router-dom'; 
-import { StateContext } from '../containers/Provider'; 
+import useLocalStrategy from '../hooks/useLocalStrategy'; 
 export default function LoginForm() {
-    // State
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
-    const [success, setSuccess] = useState('')
-    const [state, setState] = useContext(StateContext)
-
-    // Navigate 
-    const navigate = useNavigate()
-
-    // Handle submit 
-    const handleSubmit = e => {
-        e.preventDefault()
-
-        fetch("http://localhost:5000/login", {
-            method: "POST", 
-            headers: {
-                "Content-type": "application/json"
-            }, 
-            credentials: "include", 
-            body: JSON.stringify({
-                email, 
-                password
-            })
-        })
-        .then(async res => {
-            if (res.status === 401) {
-                setError("Email or password is incorrect! Please enter valid email and password")
-                return
-            }
-            let data = await res.json()
-            const { token } = data
-            setState(state => {
-                state.token = token
-                return {...state}
-            })
-        })
-        .catch(err => {
-            setError("Error! Something went wrong!")
-        })
-    }
-
+    const {
+        email,
+        setEmail,
+        password,
+        setPassword,
+        error,
+        setError,
+        success,
+        setSuccess,
+        handleSubmit
+    } = useLocalStrategy()
 
     return (
         <div id="login-div" onSubmit={handleSubmit}>

@@ -5,7 +5,7 @@ import {
     faEdit
 } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react'; 
-export default function PostDropdown({userId}) {
+export default function PostDropdown() {
     // State 
     const [showDisplay, setShowDisplay] = useState(false); 
 
