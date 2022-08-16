@@ -27,7 +27,7 @@ export default function CautionModal() {
         }
     })
 
-    const onDeleteClick = () => {
+    const onClick = () => {
         deletePost(deletePostId)
         setDeletePostId('')
     } 
@@ -47,7 +47,7 @@ export default function CautionModal() {
                     </div>
 
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-primary" onClick={onDeleteClick} data-bs-dismiss="modal">Yes</button>
+                        <button type="button" className="btn btn-primary" onClick={onClick} data-bs-dismiss="modal">Yes</button>
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => setDeletePostId('')}>No</button>
                     </div>
 

@@ -12,6 +12,7 @@ export default function Post({
     user,
     postId,
     authorName,
+    authorId,
     createdAt,
     description,
     likes,
@@ -33,7 +34,7 @@ export default function Post({
                     <div className="user-name">{authorName}</div>
                     <span className="post-time">{formatTime(createdAt)}</span>
                 </div>
-                <PostDropdown postId={postId} />
+                {authorId===user._id && <PostDropdown postId={postId} />}
             </div>
             <p className="post-description">
                 {description}
