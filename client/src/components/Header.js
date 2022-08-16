@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsis, faBell} from '@fortawesome/free-solid-svg-icons';
-import { faFacebookMessenger } from '@fortawesome/free-brands-svg-icons';
+import Navbar from './Navbar';
 
 export default function Header() {
     // State 
@@ -30,31 +28,8 @@ export default function Header() {
                     />
                 </div>
             </div>
-            <div id="header-center">
-
-            </div>
-            <ul id="navbar">
-                <li className="icon">
-                    <FontAwesomeIcon icon={faEllipsis} />
-                </li>
-                <li className="icon">
-                    <FontAwesomeIcon icon={faBell} />
-                </li>
-                <Link to="/messages">
-                    <li className="icon">
-                        <FontAwesomeIcon icon={faFacebookMessenger} />
-                    </li>
-                </Link>
-                <Link to="/profile">
-                    <li className="pic-div" style={{marginLeft:"0.8em", marginRight:"0"}}>
-                        <img
-                            className="profile-pic"
-                            src={require('../images/profile-pic.png')}
-                            alt="Picture of user"
-                        />
-                    </li>
-                </Link>
-            </ul>
+            <div id="header-center" />
+            <Navbar />
         </header>
     )
 }

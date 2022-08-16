@@ -7,15 +7,25 @@ const sessionSchema = new Schema({
     createdAt: { type: Date, default: Date.now }
 })
 
-// Like session 
+// News Schema 
+const newsSchema = new Schema({
+    userPic: {type:String, default:""},
+    newsDescription: {type: String, default: ""}
+})
 
+// Like schema 
+const notificationSchema = new Schema({
+    news: { type: [newsSchema], default: []}, 
+    isOpened: {type: Boolean, default: false}
+})
 
 // User schema 
 const userSchema = new Schema({
     name: { type: String}, 
     email: { type: String}, 
     password: { type: String }, 
-    refreshToken: {type: [sessionSchema]}
+    refreshToken: { type: [sessionSchema] }, 
+    notifications: {type: notificationSchema }
 })
 
 const User = mongoose.model("User", userSchema); 
