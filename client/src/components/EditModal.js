@@ -1,23 +1,29 @@
-import { useState } from 'react'; 
+import { useState, useContext } from 'react'; 
 import { useMutation } from '@apollo/client'; 
 import { EDIT_POST } from '../mutations/postMutations'; 
 import { GET_POSTS } from '../queries/postsQuery';
-export default function EditModal({postId }) {
+import { PostContext } from '../containers/PostProvider'; 
+export default function EditModal() {
     // State 
     const [description, setDescription] = useState('')
+
+    const { editPostId, setEditPostId } = useContext(PostContext)
+
+    console.log(editPostId)
 
     // Edit post mutation 
     const [editPost] = useMutation(EDIT_POST, {
         variables: {
-            postId, 
+            postId: editPostId, 
             description
         }, 
-        update(cache, { data }) {
+        update(cache) {
             let { posts } = cache.readQuery({
                 query: GET_POSTS
             })
             posts = [...posts]
-            let index = posts.findIndex(post => post._id === postId)
+            let index = posts.findIndex(post => post._id === editPostId)
+            console.log(index)
             let updatedPost = {...posts[index]}
             updatedPost.description = description
             posts[index] = updatedPost
@@ -30,6 +36,11 @@ export default function EditModal({postId }) {
 
         }
     })
+
+    const onClick = () => {
+        editPost(editPostId)
+        setEditPostId('')
+    }
 
     return (
         <div className="modal" id="editModal">
@@ -63,6 +74,7 @@ export default function EditModal({postId }) {
                             className="btn btn-secondary"
                             disabled={description === ""}
                             data-bs-dismiss="modal"
+                            onClick={() => setEditPostId('')}
                         >
                             Close
                         </button>
@@ -70,7 +82,7 @@ export default function EditModal({postId }) {
                             type="button"
                             className="btn btn-primary"
                             data-bs-dismiss="modal"
-                            onClick={() => editPost(postId, description)}
+                            onClick={onClick}
                         >
                             Edit
                         </button>

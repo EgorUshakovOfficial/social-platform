@@ -1,38 +1,8 @@
-import { useMutation, useSubscription} from '@apollo/client';
-import { CREATE_POST } from '../mutations/postMutations';
-import { GET_POSTS } from '../queries/postsQuery';
-import { StateContext } from '../containers/Provider'; 
-import { useState, useContext } from 'react';
-import { POST_SUBSCRIPTION } from '../subscriptions/postSubscription'; 
-
-export default function MakePost({user}) {
-    // State 
-    const [description, setDescription] = useState('')
-    const [state] = useContext(StateContext);
-
-    // Mutation for creating posts
-    const [createPost] = useMutation(CREATE_POST, {
-        variables: {
-            description
-        },
-        update(cache, { data: { createPost: { post } } }) {
-            const { posts } = cache.readQuery({ query: GET_POSTS })
-            cache.writeQuery({
-                query: GET_POSTS, 
-                data: { posts: [...posts, post]}
-            })            
-        }
-    })
-
-    const handleSubmit = e => {
-        // Prevent form from being submitted to server 
-        e.preventDefault()
-        createPost(description)
-        setDescription('')
-    }
-
+import usePostService from '../hooks/usePostService'; 
+export default function MakePost({ user }) {
+    const {description,setDescription,onSubmit} = usePostService()
     return (
-        <form id="make-post" onSubmit={handleSubmit}>
+        <form id="make-post" onSubmit={onSubmit}>
             <div id="make-post-upper">
                 <div className="pic-div">
                     <img

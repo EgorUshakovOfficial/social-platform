@@ -4,9 +4,12 @@ import { useQuery } from '@apollo/client';
 import { useEffect } from 'react'; 
 import Post from './Post'; 
 import Spinner from './Spinner'; 
+import { PostContext } from '../containers/PostProvider';
+import { useContext } from 'react'; 
 
-export default function Posts({user}) {
-    const { data, error, loading, subscribeToMore} = useQuery(GET_POSTS); 
+export default function Posts({ user }) {
+
+    const { data, error, loading, subscribeToMore } = useQuery(GET_POSTS); 
 
     useEffect(() => {
         subscribeToMore({
@@ -52,5 +55,6 @@ export default function Posts({user}) {
                 />)
             })}
         </>
+
     )
 }

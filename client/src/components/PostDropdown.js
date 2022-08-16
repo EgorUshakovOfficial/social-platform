@@ -4,11 +4,19 @@ import {
     faTrash, 
     faEdit
 } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react'; 
-export default function PostDropdown() {
-    // State 
-    const [showDisplay, setShowDisplay] = useState(false); 
-
+import { useState, useContext } from 'react'; 
+import { PostContext } from '../containers/PostProvider'; 
+export default function PostDropdown({postId }) {
+    const [showDisplay, setShowDisplay] = useState(false) 
+    const { setDeletePostId, setEditPostId} = useContext(PostContext)
+    const onDeleteClick = () => {
+        setDeletePostId(postId)
+        setShowDisplay(false)
+    }
+    const onEditClick = () => {
+        setEditPostId(postId)
+        setShowDisplay(false)
+    }
     return (
         <div className="post-dropdown">
             <div
@@ -21,7 +29,7 @@ export default function PostDropdown() {
                 <button className="post-option btn btn-secondary"
                     data-bs-toggle="modal"
                     data-bs-target="#editModal"
-                    onClick={() => setShowDisplay(false)}
+                    onClick={onEditClick}
                 >
                     Edit <FontAwesomeIcon icon={faEdit} />
                 </button>
@@ -30,11 +38,11 @@ export default function PostDropdown() {
                     className="post-option btn btn-danger"
                     data-bs-toggle="modal"
                     data-bs-target="#cautionModal"
-                    onClick={() => setShowDisplay(false)}
+                    onClick={onDeleteClick}
                 >
                     Delete <FontAwesomeIcon icon={faTrash} />
                 </button>
-            </div>}            
+            </div>}
         </div>
     )
 }

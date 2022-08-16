@@ -56,6 +56,7 @@ const resolvers = {
         },
 
         deletePost: async (_, { postId }, { dataSources }) => {
+            console.log(postId)
             try {
                 await dataSources.posts.deletePost(postId)
                 return {

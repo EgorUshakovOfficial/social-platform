@@ -1,21 +1,12 @@
-import { useState } from 'react'; 
-import { useMutation, useSubscription } from "@apollo/client"; 
-import { LIKE_POST } from '../mutations/postMutations';
-import { LIKE_SUBSCRIPTION } from '../subscriptions/postSubscription';
-import { COMMENT_SUBSCRIPTION } from '../subscriptions/commentSubscription'; 
-import { formatTime } from '../utils/formatTime'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faThumbsUp,
-    faComment,
-    faShare, 
-} from '@fortawesome/free-solid-svg-icons';
-import PostDropdown from './PostDropdown';
-import CautionModal from './CautionModal';
-import EditModal from './EditModal';
-import Comments from './Comments'; 
-import CommentForm from './CommentForm'; 
 
+import { formatTime } from '../utils/formatTime'; 
+import PostDropdown from './PostDropdown';
+import Comments from './Comments'; 
+import CommentForm from './CommentForm';
+import Reactions from './Reactions';  
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useReactions from '../hooks/useReactions';
 
 export default function Post({
     user,
@@ -26,21 +17,7 @@ export default function Post({
     likes,
     comments }) {
 
-    // State 
-    const [viewComments, setViewComments] = useState(false)
-
-    // Like mutation
-    const [likePost] = useMutation(LIKE_POST, {
-        variables: {
-            postId 
-        }
-    })
-
-    // Like subscription 
-    useSubscription(LIKE_SUBSCRIPTION)
-
-    // Comment subscription
-    useSubscription(COMMENT_SUBSCRIPTION)
+    const { viewComments, likePost, setViewComments } = useReactions(postId)
 
     return (
         <div className="post" key={postId}>
@@ -56,7 +33,7 @@ export default function Post({
                     <div className="user-name">{authorName}</div>
                     <span className="post-time">{formatTime(createdAt)}</span>
                 </div>
-                <PostDropdown />
+                <PostDropdown postId={postId} />
             </div>
             <p className="post-description">
                 {description}
@@ -70,22 +47,13 @@ export default function Post({
                 </div>
             </div>
             <div className="divider" />
-            <div className="reactions-container">
-                <button
-                    className="reaction"
-                    style={{ color: likes.filter(obj => obj.userId === user._id).length ? "blue" : "black" }}
-                    onClick={() => likePost(postId)}
-                >
-                    Like <FontAwesomeIcon icon={faThumbsUp} />
-                </button>
-                <button className="reaction" onClick={() => setViewComments(true)}>
-                    Comment<FontAwesomeIcon icon={faComment} />
-                </button>
-                <button className="reaction">
-                    Share<FontAwesomeIcon icon={faShare} />
-                </button>
-            </div>
-
+            <Reactions
+                likes={likes}
+                user={user}
+                postId={postId}
+                likePost={likePost}
+                setViewComments={setViewComments}
+            />
             {viewComments &&
                 <>
                     <div className="divider"  />
@@ -93,8 +61,6 @@ export default function Post({
                     <Comments comments={comments} />
                 </>
             }
-            <CautionModal postId={postId} />
-            <EditModal postId={postId} />
         </div>
     )
 }

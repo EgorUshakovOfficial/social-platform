@@ -7,8 +7,6 @@ import { ApolloProvider } from '@apollo/client';
 import { getClient } from '../utils/getClient';
 import {AuthContext } from '../containers/AuthProvider';
 import { useContext } from 'react'; 
-/*import {useEffect, useContext} from 'react';*/
-/*import { StateContext } from '../containers/Provider'; */
 import Protected from '../containers/Protected';
 import Dashboard from '../pages/Dashboard';
 import Spinner from './Spinner'; 

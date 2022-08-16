@@ -3,15 +3,14 @@ import Posts from '../components/Posts';
 import MakePost from '../components/MakePost';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import Spinner from '../components/Spinner'; 
-import { useContext } from 'react';
-import { useQuery, useApolloClient} from '@apollo/client'; 
+import Spinner from '../components/Spinner';
+import EditModal from '../components/EditModal'; 
+import CautionModal from '../components/CautionModal'; 
+import { useQuery, useApolloClient } from '@apollo/client'; 
 import { GET_USER } from '../queries/userQuery';
+import { PostProvider } from '../containers/PostProvider';
 
 export default function Dashboard() {
-    // State of application 
-    const [state, setState] = useContext(StateContext)
-
     // Apollo client
     const client = useApolloClient()
 
@@ -28,17 +27,23 @@ export default function Dashboard() {
     }
 
     // Retrieve user details
-    const { data, loading, error} = useQuery(GET_USER)
+    const { data, loading, error } = useQuery(GET_USER)
+
+    console.log("Hello world")
 
     if (loading) return <Spinner />
     if (error) return <p>Error! Something went wrong!</p>
     return (
         <div id="dashboard">
             <Header />
-            <div id="posts">
-                <MakePost user={data.user} />
-                <Posts user={data.user } />
-            </div>
+            <PostProvider>
+                <div id="posts">
+                    <MakePost user={data.user} />
+                    <Posts user={data.user} />
+                    <EditModal />
+                    <CautionModal />
+                </div>
+            </PostProvider>
             <Sidebar />
         </div>
     )

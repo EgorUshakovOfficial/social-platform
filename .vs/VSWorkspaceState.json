@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\components",
+    "\\client\\src\\containers",
+    "\\client\\src\\hooks",
+    "\\datasources",
+    "\\datasources\\mongodb-datasources"
+  ],
+  "SelectedNode": "\\client\\src\\components\\Post.js",
+  "PreviewInSolutionExplorer": false
+}
