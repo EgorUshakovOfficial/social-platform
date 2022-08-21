@@ -9,6 +9,7 @@ const sessionSchema = new Schema({
 
 // News Schema 
 const newsSchema = new Schema({
+    userId: {type: String},
     userPic: {type:String, default:""},
     newsDescription: {type: String, default: ""}
 })
@@ -21,11 +22,11 @@ const notificationSchema = new Schema({
 
 // User schema 
 const userSchema = new Schema({
-    name: { type: String}, 
-    email: { type: String}, 
-    password: { type: String }, 
-    refreshToken: { type: [sessionSchema] }, 
-    notifications: {type: notificationSchema }
+    name: { type: String },
+    email: { type: String },
+    password: { type: String },
+    refreshToken: { type: [sessionSchema] },
+    notifications: { type: notificationSchema, default: {}}
 })
 
 const User = mongoose.model("User", userSchema); 

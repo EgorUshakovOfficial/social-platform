@@ -1,29 +1,11 @@
-import { GET_POSTS } from '../queries/postsQuery';
-import { POST_SUBSCRIPTION } from '../subscriptions/postSubscription'; 
-import { useQuery } from '@apollo/client';
-import { useEffect } from 'react'; 
+import { useQuery, useSubscription } from '@apollo/client';
 import Post from './Post'; 
 import Spinner from './Spinner'; 
-import { PostContext } from '../containers/PostProvider';
-import { useContext } from 'react'; 
+import { GET_POSTS } from '../queries/postsQuery';
 
 export default function Posts({ user }) {
 
-    const { data, error, loading, subscribeToMore } = useQuery(GET_POSTS); 
-
-    useEffect(() => {
-        subscribeToMore({
-            document: POST_SUBSCRIPTION,
-            variables: { userId: user._id },
-            updateQuery: (prev, { subscriptionData }) => {
-                console.log(subscriptionData)
-                if (!subscriptionData.data) return prev;
-                const newPost = subscriptionData.data.newPost
-
-                return Object.assign({}, prev, { posts: [...prev.posts, newPost] })
-            }
-        })
-    }, [])
+    const { data, error, loading } = useQuery(GET_POSTS); 
 
     if (error) { return <p>Error! Something has gone wrong!</p> }
 

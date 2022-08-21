@@ -6,7 +6,7 @@ import Sidebar from '../components/Sidebar';
 import Spinner from '../components/Spinner';
 import EditModal from '../components/EditModal'; 
 import CautionModal from '../components/CautionModal'; 
-import { useQuery, useApolloClient } from '@apollo/client'; 
+import { useQuery, useApolloClient, useSubscription} from '@apollo/client'; 
 import { GET_USER } from '../queries/userQuery';
 import { PostProvider } from '../containers/PostProvider';
 
@@ -28,14 +28,11 @@ export default function Dashboard() {
 
     // Retrieve user details
     const { data, loading, error } = useQuery(GET_USER)
-
-    console.log("Hello world")
-
     if (loading) return <Spinner />
     if (error) return <p>Error! Something went wrong!</p>
     return (
         <div id="dashboard">
-            <Header />
+            <Header user={data.user} />
             <PostProvider>
                 <div id="posts">
                     <MakePost user={data.user} />

@@ -13,6 +13,9 @@ const resolvers = {
         }, 
         comments: (_, { postId }, { dataSources }) => {
             return dataSources.posts.getComments(postId)
+        },
+        notifications: (_, { userId }, {dataSources}) => {
+            return dataSources.users.getNotifications(userId)
         }
     },
     Mutation: {
@@ -83,7 +86,7 @@ const resolvers = {
                     _id: post._id,
                     description: post.description,
                     createdAt: post.createdAt,
-                    authorId: user._id.toString(),
+                    authorId: user._id.toString(), // Bug here 
                     comments: post.comments,
                     likes: post.likes
                 }
@@ -107,21 +110,27 @@ const resolvers = {
 
         likePost: async (_, { postId }, { dataSources, user}) => {
             try {
-                let post = await dataSources.posts.updateLikes(postId, user.name, user._id.toString())
-
+                let userId = user._id.toString()
+                let { post, event } = await dataSources.posts.updateLikes(postId, user.name, userId)
                 post = {
                     _id: post._id,
                     description: post.description,
                     createdAt: post.createdAt,
-                    authorId: user._id.toString(),
+                    authorId: post.authorId,
                     comments: post.comments,
                     likes: post.likes
                 }
+                let authorId = post.authorId
 
                 // Publish when user likes specific post
-                await pubsub.publish("POST_LIKED", {
+                pubsub.publish("POST_LIKED", {
                     likedPost: {...post}
                 })
+
+                // Publish after user likes post 
+                if (event === "liked" && authorId !== userId) {
+                    await dataSources.users.updateNotifications(user, authorId, event)
+                }
 
                 return {
                     success: true, 
@@ -149,13 +158,13 @@ const resolvers = {
                     _id: post._id,
                     description: post.description,
                     createdAt: post.createdAt,
-                    authorId: user._id.toString(),
+                    authorId: postId.authorId,
                     comments: post.comments,
                     likes: post.likes
                 }
 
                 // Publish when use comments on post 
-                await pubsub.publish("POST_COMMENTED", {
+                pubsub.publish("POST_COMMENTED", {
                     commentedPost: {...post}
                 })
 
@@ -179,13 +188,7 @@ const resolvers = {
     },
     Subscription: {
         newPost: {
-            subscribe: withFilter(
-                () => pubsub.asyncIterator("POST_CREATED"), 
-                (payload, variables) => {
-                    const { newPost } = payload
-                    return (newPost.authorId !== variables.userId)
-                }
-            )
+            subscribe: () => pubsub.asyncIterator("POST_CREATED")
         }, 
         likedPost: {
             subscribe: () => pubsub.asyncIterator("POST_LIKED")

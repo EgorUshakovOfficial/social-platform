@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react'; 
 import Navbar from './Navbar';
 
-export default function Header() {
+export default function Header({user}) {
     // State 
     const [filter, setFilter] = useState('')
 
@@ -29,7 +29,7 @@ export default function Header() {
                 </div>
             </div>
             <div id="header-center" />
-            <Navbar />
+            <Navbar user={user} />
         </header>
     )
 }

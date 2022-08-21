@@ -6,6 +6,7 @@ const typeDefs = gql`
         posts: [Post!]
         post(postId: ID!): Post!
         comments(postId: ID!): [Comment!]!
+        notifications(userId: String!): Notifications! 
     }
 
     type Mutation{
@@ -39,6 +40,17 @@ const typeDefs = gql`
     type Like{
         userId: ID! 
         userName: String! 
+    }
+    
+    type News{
+        userPic: String!
+        userId: String! 
+        newsDescription: String!        
+    }
+
+    type Notifications{
+        isOpened: Boolean!
+        news: [News!]! 
     }
 
     type Comment{

@@ -1,6 +1,6 @@
 import usePostService from '../hooks/usePostService'; 
 export default function MakePost({ user }) {
-    const {description,setDescription,onSubmit} = usePostService()
+    const { description, setDescription, onSubmit } = usePostService({userId: user._id})
     return (
         <form id="make-post" onSubmit={onSubmit}>
             <div id="make-post-upper">

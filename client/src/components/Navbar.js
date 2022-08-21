@@ -3,7 +3,7 @@ import { faEllipsis, faBell } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookMessenger } from '@fortawesome/free-brands-svg-icons';
 import NotificationDropdown from './NotificationDropdown'; 
 import { Link } from 'react-router-dom';
-export default function Navbar() {
+export default function Navbar({user }) {
     return (
         <ul id="navbar">
             <li className="icon">
@@ -27,7 +27,7 @@ export default function Navbar() {
                     />
                 </li>
             </Link>
-            <NotificationDropdown />
+            <NotificationDropdown user={user} />
         </ul>
     )
 }

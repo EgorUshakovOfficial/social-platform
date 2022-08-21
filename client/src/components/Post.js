@@ -18,7 +18,7 @@ export default function Post({
     likes,
     comments }) {
 
-    const { viewComments, likePost, setViewComments } = useReactions(postId)
+    const { viewComments, likePost, setViewComments } = useReactions({ postId, userId: user._id })
 
     return (
         <div className="post" key={postId}>

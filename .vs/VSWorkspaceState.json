@@ -4,11 +4,13 @@
     "\\client",
     "\\client\\src",
     "\\client\\src\\components",
-    "\\client\\src\\containers",
     "\\client\\src\\hooks",
-    "\\datasources",
-    "\\datasources\\mongodb-datasources"
+    "\\client\\src\\pages",
+    "\\client\\src\\styles",
+    "\\models",
+    "\\resolvers",
+    "\\schema"
   ],
-  "SelectedNode": "\\client\\src\\components\\Post.js",
+  "SelectedNode": "\\client\\src\\pages\\Dashboard.js",
   "PreviewInSolutionExplorer": false
 }
